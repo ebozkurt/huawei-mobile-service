@@ -1,0 +1,30 @@
+{
+  "name": "teknasyon/huawei-mobile-service",
+  "description": "Huawei Mobile Services",
+  "keywords": [
+    "huawei",
+    "purchase",
+    "hms",
+    "php",
+    "teknasyon"
+  ],
+  "type": "library",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ekrem BOZKURT",
+      "email": "ekrembozkurt1988@gmail.com"
+    }
+  ],
+  "require": {
+    "google/apiclient": "^2.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "6.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Teknasyon\\HuaweiMobileService\\": "src/"
+    }
+  }
+}
