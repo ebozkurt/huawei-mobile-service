@@ -1,7 +1,5 @@
 <?php
 
-namespace Teknasyon\HuaweiMobileService;
-
 /**
  * Copyright 2010 Google Inc.
  *
@@ -18,9 +16,11 @@ namespace Teknasyon\HuaweiMobileService;
  * limitations under the License.
  */
 
+namespace Teknasyon\HuaweiMobileService;
+
 use GuzzleHttp\Psr7\Request;
 use Teknasyon\HuaweiMobileService\HuaweiClient as Client;
-use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\Huawei_Exception;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 
 /**
  * Implements the actual methods/resources of the discovered Google API using magic function
@@ -30,20 +30,6 @@ use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\Huawei_Exception;
  */
 class Resource
 {
-    // Valid query parameters that work, but don't appear in discovery.
-    private $stackParameters = array(
-            'alt' => array('type' => 'string', 'location' => 'query'),
-            'fields' => array('type' => 'string', 'location' => 'query'),
-            'trace' => array('type' => 'string', 'location' => 'query'),
-            'userIp' => array('type' => 'string', 'location' => 'query'),
-            'quotaUser' => array('type' => 'string', 'location' => 'query'),
-            'data' => array('type' => 'string', 'location' => 'body'),
-            'mimeType' => array('type' => 'string', 'location' => 'header'),
-            'uploadType' => array('type' => 'string', 'location' => 'query'),
-            'mediaUpload' => array('type' => 'complex', 'location' => 'query'),
-            'prettyPrint' => array('type' => 'string', 'location' => 'query'),
-        );
-
     /** @var string $rootUrl */
     private $rootUrl;
 
@@ -83,7 +69,8 @@ class Resource
      * @param $expectedClass - optional, the expected class name
      *
      * @return Google_Http_Request|expectedClass
-     * @throws Huawei_Exception
+     * @throws HuaweiException
+     * @throws \Google_Exception
      */
     public function call($name, $arguments, $expectedClass = null)
     {
@@ -97,7 +84,7 @@ class Resource
                 )
             );
 
-            throw new Huawei_Exception(
+            throw new HuaweiException(
                 "Unknown function: " .
                 "{$this->serviceName}->{$this->resourceName}->{$name}()"
             );
@@ -138,11 +125,6 @@ class Resource
             $method['parameters'] = array();
         }
 
-        $method['parameters'] = array_merge(
-            $this->stackParameters,
-            $method['parameters']
-        );
-
         foreach ($parameters as $key => $val) {
             if ($key != 'postBody' && !isset($method['parameters'][$key])) {
                 $this->client->getLogger()->error(
@@ -154,7 +136,7 @@ class Resource
                         'parameter' => $key
                     )
                 );
-                throw new Huawei_Exception("($name) unknown parameter: '$key'");
+                throw new HuaweiException("($name) unknown parameter: '$key'");
             }
         }
 
@@ -169,7 +151,7 @@ class Resource
                         'parameter' => $paramName
                     )
                 );
-                throw new Huawei_Exception("($name) missing required param: '$paramName'");
+                throw new HuaweiException("($name) missing required param: '$paramName'");
             }
             if (isset($parameters[$paramName])) {
                 $value = $parameters[$paramName];
@@ -207,21 +189,6 @@ class Resource
             ['content-type' => 'application/json'],
             $postBody ? json_encode($postBody) : ''
         );
-
-        // if this is a media type, we will return the raw response
-        // rather than using an expected class
-        if (isset($parameters['alt']) && $parameters['alt']['value'] == 'media') {
-            $expectedClass = null;
-        }
-
-        // if the client is marked for deferring, rather than
-        // execute the request, return the response
-        if ($this->client->shouldDefer()) {
-            // @TODO find a better way to do this
-            $request = $request->withHeader('X-Php-Expected-Class', $expectedClass);
-
-            return $request;
-        }
 
         return $this->client->execute($request, $expectedClass);
     }
