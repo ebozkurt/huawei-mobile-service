@@ -49,10 +49,10 @@ class Publisher extends Google_Service
     /**
      * Constructs the internal representation of the AndroidPublisher service.
      *
-     * @param Google_Client $client  The client used to deliver requests.
+     * @param $client The client used to deliver requests.
      * @param string        $rootUrl The root URL used for requests to the service.
      */
-    public function __construct(Google_Client $client, $rootUrl = null)
+    public function __construct($client, $rootUrl = null)
     {
         parent::__construct($client);
         $this->rootUrl = $rootUrl ?: 'https://subscr-drru.iap.hicloud.com/';

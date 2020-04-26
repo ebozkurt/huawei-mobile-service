@@ -20,9 +20,14 @@
 namespace Teknasyon\HuaweiMobileService;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Monolog\Logger;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 
 class HuaweiClient
 {
@@ -63,16 +68,98 @@ class HuaweiClient
         );
         $this->redis = $redis;
         $this->logger = $logger;
+        $this->client = new Client();
     }
 
-
+    /**
+     * @param Request $request
+     * @param string  $expectedClass
+     *
+     * @return mixed|null
+     * @throws HuaweiException
+     */
     public function execute(Request $request, $expectedClass = "")
     {
         $request = $this->authorize($request);
 
-        $xxx = $this->client->send($request);
+        try {
+            $response = $this->client->send($request);
+        } catch (RequestException $e) {
 
-        return $xxx;
+            if (!$e->hasResponse()) {
+                throw $e;
+            }
+
+            $response = $e->getResponse();
+
+            if ($response instanceof ResponseInterface) {
+                $response = new Response(
+                    $response->getStatusCode(),
+                    $response->getHeaders() ?: [],
+                    $response->getBody(),
+                    $response->getProtocolVersion(),
+                    $response->getReasonPhrase()
+                );
+            }
+        }
+
+        return self::decodeHttpResponse($response, $request, $expectedClass);
+
+    }
+
+    /**
+     * Decode an HTTP Response.
+     *
+     * @static
+     *
+     * @param ResponseInterface $response
+     * @param RequestInterface  $request The http response to be decoded.
+     * @param null              $expectedClass
+     *
+     * @return mixed|null
+     * @throws HuaweiException
+     */
+    public static function decodeHttpResponse(
+        ResponseInterface $response,
+        RequestInterface $request = null,
+        $expectedClass = null
+    ) {
+        $code = $response->getStatusCode();
+
+        // retry strategy
+        if (intVal($code) >= 400) {
+            // if we errored out, it should be safe to grab the response body
+            $body = (string)$response->getBody();
+
+            // Check if we received errors, and add those to the Exception for convenience
+            throw new HuaweiException($body, $code, null);
+        }
+
+        $body = (string)$response->getBody();
+
+        if ($expectedClass = self::determineExpectedClass($expectedClass, $request)) {
+            $json = json_decode($body, true);
+
+            return new $expectedClass($json);
+        }
+
+        return $response;
+    }
+
+    private static function determineExpectedClass($expectedClass, RequestInterface $request = null)
+    {
+        // "false" is used to explicitly prevent an expected class from being returned
+        if (false === $expectedClass) {
+            return null;
+        }
+
+        // if we don't have a request, we just use what's passed in
+        if (null === $request) {
+            return $expectedClass;
+        }
+
+        // return what we have in the request header if one was not supplied
+        return $expectedClass ?: $request->getHeaderLine('X-Php-Expected-Class');
     }
 
     private function authorize(Request $request)
@@ -87,6 +174,11 @@ class HuaweiClient
 
     private function getAccessToken()
     {
+
+        if (!$this->redis) {
+            $token = $this->requestAccessTokenFromHuawei();
+            return $token[0];
+        }
 
         $accessToken = $this->redis->get($this->getRedisKey(self::ACCESS_TOKEN_KEY));
         if ($accessToken) {
@@ -137,8 +229,8 @@ class HuaweiClient
             $requestParams = array(
                 'form_params' => array(
                     "grant_type" => "client_credentials",
-                    "client_id" => $this->config['hwAppId'],
-                    "client_secret" => $this->config['hwAppSecret']
+                    "client_id" => $this->config['client_id'],
+                    "client_secret" => $this->config['client_secret']
                 )
             );
 
@@ -210,6 +302,7 @@ class HuaweiClient
 
     /**
      * Set the Logger object
+     *
      * @param LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger)

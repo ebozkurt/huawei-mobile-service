@@ -19,324 +19,803 @@ namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
 class SubscriptionGetResponse extends \Google_Model
 {
-    public $acknowledgementState;
+    public $applicationId;
     public $autoRenewing;
-    public $autoResumeTimeMillis;
-    public $cancelReason;
-    protected $cancelSurveyResultType = 'Google_Service_AndroidPublisher_SubscriptionCancelSurveyResult';
-    protected $cancelSurveyResultDataType = '';
-    public $countryCode;
-    public $developerPayload;
-    public $emailAddress;
-    public $expiryTimeMillis;
-    public $externalAccountId;
-    public $familyName;
-    public $givenName;
-    protected $introductoryPriceInfoType = 'Google_Service_AndroidPublisher_IntroductoryPriceInfo';
-    protected $introductoryPriceInfoDataType = '';
-    public $kind;
-    public $linkedPurchaseToken;
     public $orderId;
-    public $paymentState;
-    public $priceAmountMicros;
-    protected $priceChangeType = 'Google_Service_AndroidPublisher_SubscriptionPriceChange';
-    protected $priceChangeDataType = '';
-    public $priceCurrencyCode;
-    public $profileId;
-    public $profileName;
-    public $promotionCode;
-    public $promotionType;
+    public $kind;
+    public $packageName;
+    public $productId;
+    public $productName;
+    public $purchaseState;
+    public $developerPayload;
+    public $developerChallenge;
+    public $consumptionState;
+    public $purchaseToken;
     public $purchaseType;
-    public $startTimeMillis;
-    public $userCancellationTimeMillis;
+    public $currency;
+    public $price;
+    public $country;
+    public $payType;
+    public $payOrderId;
+    public $lastOrderId;
+    public $productGroup;
+    public $purchaseTime;
+    public $oriPurchaseTime;
+    public $subscriptionId;
+    public $oriSubscriptionId;
+    public $quantity;
+    public $daysLasted;
+    public $numOfPeriods;
+    public $numOfDiscount;
+    public $expirationDate;
+    public $expirationIntent;
+    public $retryFlag;
+    public $introductoryFlag;
+    public $trialFlag;
+    public $cancelTime;
+    public $cancelReason;
+    public $appInfo;
+    public $notifyClosed;
+    public $renewStatus;
+    public $priceConsentStatus;
+    public $renewPrice;
+    public $subIsvalid;
+    public $deferFlag;
+    public $cancelWay;
+    public $cancellationTime;
+    public $cancelledSubKeepDays;
+    public $confirmed;
+    public $resumeTime;
 
-    public function setAcknowledgementState($acknowledgementState)
+    /**
+     * @return mixed
+     */
+    public function getApplicationId()
     {
-        $this->acknowledgementState = $acknowledgementState;
+        return $this->applicationId;
     }
 
-    public function getAcknowledgementState()
+    /**
+     * @param mixed $applicationId
+     */
+    public function setApplicationId($applicationId)
     {
-        return $this->acknowledgementState;
+        $this->applicationId = $applicationId;
     }
 
-    public function setAutoRenewing($autoRenewing)
-    {
-        $this->autoRenewing = $autoRenewing;
-    }
-
+    /**
+     * @return mixed
+     */
     public function getAutoRenewing()
     {
         return $this->autoRenewing;
     }
 
-    public function setAutoResumeTimeMillis($autoResumeTimeMillis)
+    /**
+     * @param mixed $autoRenewing
+     */
+    public function setAutoRenewing($autoRenewing)
     {
-        $this->autoResumeTimeMillis = $autoResumeTimeMillis;
+        $this->autoRenewing = $autoRenewing;
     }
 
-    public function getAutoResumeTimeMillis()
+    /**
+     * @return mixed
+     */
+    public function getOrderId()
     {
-        return $this->autoResumeTimeMillis;
+        return $this->orderId;
     }
 
-    public function setCancelReason($cancelReason)
+    /**
+     * @param mixed $orderId
+     */
+    public function setOrderId($orderId)
     {
-        $this->cancelReason = $cancelReason;
+        $this->orderId = $orderId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getKind()
+    {
+        return $this->kind;
+    }
+
+    /**
+     * @param mixed $kind
+     */
+    public function setKind($kind)
+    {
+        $this->kind = $kind;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPackageName()
+    {
+        return $this->packageName;
+    }
+
+    /**
+     * @param mixed $packageName
+     */
+    public function setPackageName($packageName)
+    {
+        $this->packageName = $packageName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param mixed $productId
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+
+    /**
+     * @param mixed $productName
+     */
+    public function setProductName($productName)
+    {
+        $this->productName = $productName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseState()
+    {
+        return $this->purchaseState;
+    }
+
+    /**
+     * @param mixed $purchaseState
+     */
+    public function setPurchaseState($purchaseState)
+    {
+        $this->purchaseState = $purchaseState;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeveloperPayload()
+    {
+        return $this->developerPayload;
+    }
+
+    /**
+     * @param mixed $developerPayload
+     */
+    public function setDeveloperPayload($developerPayload)
+    {
+        $this->developerPayload = $developerPayload;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeveloperChallenge()
+    {
+        return $this->developerChallenge;
+    }
+
+    /**
+     * @param mixed $developerChallenge
+     */
+    public function setDeveloperChallenge($developerChallenge)
+    {
+        $this->developerChallenge = $developerChallenge;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConsumptionState()
+    {
+        return $this->consumptionState;
+    }
+
+    /**
+     * @param mixed $consumptionState
+     */
+    public function setConsumptionState($consumptionState)
+    {
+        $this->consumptionState = $consumptionState;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseToken()
+    {
+        return $this->purchaseToken;
+    }
+
+    /**
+     * @param mixed $purchaseToken
+     */
+    public function setPurchaseToken($purchaseToken)
+    {
+        $this->purchaseToken = $purchaseToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseType()
+    {
+        return $this->purchaseType;
+    }
+
+    /**
+     * @param mixed $purchaseType
+     */
+    public function setPurchaseType($purchaseType)
+    {
+        $this->purchaseType = $purchaseType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param mixed $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayType()
+    {
+        return $this->payType;
+    }
+
+    /**
+     * @param mixed $payType
+     */
+    public function setPayType($payType)
+    {
+        $this->payType = $payType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayOrderId()
+    {
+        return $this->payOrderId;
+    }
+
+    /**
+     * @param mixed $payOrderId
+     */
+    public function setPayOrderId($payOrderId)
+    {
+        $this->payOrderId = $payOrderId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastOrderId()
+    {
+        return $this->lastOrderId;
+    }
+
+    /**
+     * @param mixed $lastOrderId
+     */
+    public function setLastOrderId($lastOrderId)
+    {
+        $this->lastOrderId = $lastOrderId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductGroup()
+    {
+        return $this->productGroup;
+    }
+
+    /**
+     * @param mixed $productGroup
+     */
+    public function setProductGroup($productGroup)
+    {
+        $this->productGroup = $productGroup;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseTime()
+    {
+        return $this->purchaseTime;
+    }
+
+    /**
+     * @param mixed $purchaseTime
+     */
+    public function setPurchaseTime($purchaseTime)
+    {
+        $this->purchaseTime = $purchaseTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOriPurchaseTime()
+    {
+        return $this->oriPurchaseTime;
+    }
+
+    /**
+     * @param mixed $oriPurchaseTime
+     */
+    public function setOriPurchaseTime($oriPurchaseTime)
+    {
+        $this->oriPurchaseTime = $oriPurchaseTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionId()
+    {
+        return $this->subscriptionId;
+    }
+
+    /**
+     * @param mixed $subscriptionId
+     */
+    public function setSubscriptionId($subscriptionId)
+    {
+        $this->subscriptionId = $subscriptionId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOriSubscriptionId()
+    {
+        return $this->oriSubscriptionId;
+    }
+
+    /**
+     * @param mixed $oriSubscriptionId
+     */
+    public function setOriSubscriptionId($oriSubscriptionId)
+    {
+        $this->oriSubscriptionId = $oriSubscriptionId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDaysLasted()
+    {
+        return $this->daysLasted;
+    }
+
+    /**
+     * @param mixed $daysLasted
+     */
+    public function setDaysLasted($daysLasted)
+    {
+        $this->daysLasted = $daysLasted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumOfPeriods()
+    {
+        return $this->numOfPeriods;
+    }
+
+    /**
+     * @param mixed $numOfPeriods
+     */
+    public function setNumOfPeriods($numOfPeriods)
+    {
+        $this->numOfPeriods = $numOfPeriods;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumOfDiscount()
+    {
+        return $this->numOfDiscount;
+    }
+
+    /**
+     * @param mixed $numOfDiscount
+     */
+    public function setNumOfDiscount($numOfDiscount)
+    {
+        $this->numOfDiscount = $numOfDiscount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpirationDate()
+    {
+        return $this->expirationDate;
+    }
+
+    /**
+     * @param mixed $expirationDate
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpirationIntent()
+    {
+        return $this->expirationIntent;
+    }
+
+    /**
+     * @param mixed $expirationIntent
+     */
+    public function setExpirationIntent($expirationIntent)
+    {
+        $this->expirationIntent = $expirationIntent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRetryFlag()
+    {
+        return $this->retryFlag;
+    }
+
+    /**
+     * @param mixed $retryFlag
+     */
+    public function setRetryFlag($retryFlag)
+    {
+        $this->retryFlag = $retryFlag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIntroductoryFlag()
+    {
+        return $this->introductoryFlag;
+    }
+
+    /**
+     * @param mixed $introductoryFlag
+     */
+    public function setIntroductoryFlag($introductoryFlag)
+    {
+        $this->introductoryFlag = $introductoryFlag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrialFlag()
+    {
+        return $this->trialFlag;
+    }
+
+    /**
+     * @param mixed $trialFlag
+     */
+    public function setTrialFlag($trialFlag)
+    {
+        $this->trialFlag = $trialFlag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCancelTime()
+    {
+        return $this->cancelTime;
+    }
+
+    /**
+     * @param mixed $cancelTime
+     */
+    public function setCancelTime($cancelTime)
+    {
+        $this->cancelTime = $cancelTime;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCancelReason()
     {
         return $this->cancelReason;
     }
 
     /**
-     * @param Google_Service_AndroidPublisher_SubscriptionCancelSurveyResult
+     * @param mixed $cancelReason
      */
-    public function setCancelSurveyResult(
-        Google_Service_AndroidPublisher_SubscriptionCancelSurveyResult $cancelSurveyResult
-    ) {
-        $this->cancelSurveyResult = $cancelSurveyResult;
+    public function setCancelReason($cancelReason)
+    {
+        $this->cancelReason = $cancelReason;
     }
 
     /**
-     * @return Google_Service_AndroidPublisher_SubscriptionCancelSurveyResult
+     * @return mixed
      */
-    public function getCancelSurveyResult()
+    public function getAppInfo()
     {
-        return $this->cancelSurveyResult;
-    }
-
-    public function setCountryCode($countryCode)
-    {
-        $this->countryCode = $countryCode;
-    }
-
-    public function getCountryCode()
-    {
-        return $this->countryCode;
-    }
-
-    public function setDeveloperPayload($developerPayload)
-    {
-        $this->developerPayload = $developerPayload;
-    }
-
-    public function getDeveloperPayload()
-    {
-        return $this->developerPayload;
-    }
-
-    public function setEmailAddress($emailAddress)
-    {
-        $this->emailAddress = $emailAddress;
-    }
-
-    public function getEmailAddress()
-    {
-        return $this->emailAddress;
-    }
-
-    public function setExpiryTimeMillis($expiryTimeMillis)
-    {
-        $this->expiryTimeMillis = $expiryTimeMillis;
-    }
-
-    public function getExpiryTimeMillis()
-    {
-        return $this->expiryTimeMillis;
-    }
-
-    public function setExternalAccountId($externalAccountId)
-    {
-        $this->externalAccountId = $externalAccountId;
-    }
-
-    public function getExternalAccountId()
-    {
-        return $this->externalAccountId;
-    }
-
-    public function setFamilyName($familyName)
-    {
-        $this->familyName = $familyName;
-    }
-
-    public function getFamilyName()
-    {
-        return $this->familyName;
-    }
-
-    public function setGivenName($givenName)
-    {
-        $this->givenName = $givenName;
-    }
-
-    public function getGivenName()
-    {
-        return $this->givenName;
+        return $this->appInfo;
     }
 
     /**
-     * @param Google_Service_AndroidPublisher_IntroductoryPriceInfo
+     * @param mixed $appInfo
      */
-    public function setIntroductoryPriceInfo(
-        Google_Service_AndroidPublisher_IntroductoryPriceInfo $introductoryPriceInfo
-    ) {
-        $this->introductoryPriceInfo = $introductoryPriceInfo;
+    public function setAppInfo($appInfo)
+    {
+        $this->appInfo = $appInfo;
     }
 
     /**
-     * @return Google_Service_AndroidPublisher_IntroductoryPriceInfo
+     * @return mixed
      */
-    public function getIntroductoryPriceInfo()
+    public function getNotifyClosed()
     {
-        return $this->introductoryPriceInfo;
-    }
-
-    public function setKind($kind)
-    {
-        $this->kind = $kind;
-    }
-
-    public function getKind()
-    {
-        return $this->kind;
-    }
-
-    public function setLinkedPurchaseToken($linkedPurchaseToken)
-    {
-        $this->linkedPurchaseToken = $linkedPurchaseToken;
-    }
-
-    public function getLinkedPurchaseToken()
-    {
-        return $this->linkedPurchaseToken;
-    }
-
-    public function setOrderId($orderId)
-    {
-        $this->orderId = $orderId;
-    }
-
-    public function getOrderId()
-    {
-        return $this->orderId;
-    }
-
-    public function setPaymentState($paymentState)
-    {
-        $this->paymentState = $paymentState;
-    }
-
-    public function getPaymentState()
-    {
-        return $this->paymentState;
-    }
-
-    public function setPriceAmountMicros($priceAmountMicros)
-    {
-        $this->priceAmountMicros = $priceAmountMicros;
-    }
-
-    public function getPriceAmountMicros()
-    {
-        return $this->priceAmountMicros;
+        return $this->notifyClosed;
     }
 
     /**
-     * @param Google_Service_AndroidPublisher_SubscriptionPriceChange
+     * @param mixed $notifyClosed
      */
-    public function setPriceChange(Google_Service_AndroidPublisher_SubscriptionPriceChange $priceChange)
+    public function setNotifyClosed($notifyClosed)
     {
-        $this->priceChange = $priceChange;
+        $this->notifyClosed = $notifyClosed;
     }
 
     /**
-     * @return Google_Service_AndroidPublisher_SubscriptionPriceChange
+     * @return mixed
      */
-    public function getPriceChange()
+    public function getRenewStatus()
     {
-        return $this->priceChange;
+        return $this->renewStatus;
     }
 
-    public function setPriceCurrencyCode($priceCurrencyCode)
+    /**
+     * @param mixed $renewStatus
+     */
+    public function setRenewStatus($renewStatus)
     {
-        $this->priceCurrencyCode = $priceCurrencyCode;
+        $this->renewStatus = $renewStatus;
     }
 
-    public function getPriceCurrencyCode()
+    /**
+     * @return mixed
+     */
+    public function getPriceConsentStatus()
     {
-        return $this->priceCurrencyCode;
+        return $this->priceConsentStatus;
     }
 
-    public function setProfileId($profileId)
+    /**
+     * @param mixed $priceConsentStatus
+     */
+    public function setPriceConsentStatus($priceConsentStatus)
     {
-        $this->profileId = $profileId;
+        $this->priceConsentStatus = $priceConsentStatus;
     }
 
-    public function getProfileId()
+    /**
+     * @return mixed
+     */
+    public function getRenewPrice()
     {
-        return $this->profileId;
+        return $this->renewPrice;
     }
 
-    public function setProfileName($profileName)
+    /**
+     * @param mixed $renewPrice
+     */
+    public function setRenewPrice($renewPrice)
     {
-        $this->profileName = $profileName;
+        $this->renewPrice = $renewPrice;
     }
 
-    public function getProfileName()
+    /**
+     * @return mixed
+     */
+    public function getSubIsvalid()
     {
-        return $this->profileName;
+        return $this->subIsvalid;
     }
 
-    public function setPromotionCode($promotionCode)
+    /**
+     * @param mixed $subIsvalid
+     */
+    public function setSubIsvalid($subIsvalid)
     {
-        $this->promotionCode = $promotionCode;
+        $this->subIsvalid = $subIsvalid;
     }
 
-    public function getPromotionCode()
+    /**
+     * @return mixed
+     */
+    public function getDeferFlag()
     {
-        return $this->promotionCode;
+        return $this->deferFlag;
     }
 
-    public function setPromotionType($promotionType)
+    /**
+     * @param mixed $deferFlag
+     */
+    public function setDeferFlag($deferFlag)
     {
-        $this->promotionType = $promotionType;
+        $this->deferFlag = $deferFlag;
     }
 
-    public function getPromotionType()
+    /**
+     * @return mixed
+     */
+    public function getCancelWay()
     {
-        return $this->promotionType;
+        return $this->cancelWay;
     }
 
-    public function setPurchaseType($purchaseType)
+    /**
+     * @param mixed $cancelWay
+     */
+    public function setCancelWay($cancelWay)
     {
-        $this->purchaseType = $purchaseType;
+        $this->cancelWay = $cancelWay;
     }
 
-    public function getPurchaseType()
+    /**
+     * @return mixed
+     */
+    public function getCancellationTime()
     {
-        return $this->purchaseType;
+        return $this->cancellationTime;
     }
 
-    public function setStartTimeMillis($startTimeMillis)
+    /**
+     * @param mixed $cancellationTime
+     */
+    public function setCancellationTime($cancellationTime)
     {
-        $this->startTimeMillis = $startTimeMillis;
+        $this->cancellationTime = $cancellationTime;
     }
 
-    public function getStartTimeMillis()
+    /**
+     * @return mixed
+     */
+    public function getCancelledSubKeepDays()
     {
-        return $this->startTimeMillis;
+        return $this->cancelledSubKeepDays;
     }
 
-    public function setUserCancellationTimeMillis($userCancellationTimeMillis)
+    /**
+     * @param mixed $cancelledSubKeepDays
+     */
+    public function setCancelledSubKeepDays($cancelledSubKeepDays)
     {
-        $this->userCancellationTimeMillis = $userCancellationTimeMillis;
+        $this->cancelledSubKeepDays = $cancelledSubKeepDays;
     }
 
-    public function getUserCancellationTimeMillis()
+    /**
+     * @return mixed
+     */
+    public function getConfirmed()
     {
-        return $this->userCancellationTimeMillis;
+        return $this->confirmed;
+    }
+
+    /**
+     * @param mixed $confirmed
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResumeTime()
+    {
+        return $this->resumeTime;
+    }
+
+    /**
+     * @param mixed $resumeTime
+     */
+    public function setResumeTime($resumeTime)
+    {
+        $this->resumeTime = $resumeTime;
     }
 }

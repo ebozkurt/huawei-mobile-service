@@ -23,12 +23,12 @@ class SubscriptionGetRequest extends \Google_Model
     /**
      * @var string $subscriptionId
      */
-    protected $subscriptionId;
+    public $subscriptionId;
 
     /**
      * @var string $purchaseToken
      */
-    protected $purchaseToken;
+    public $purchaseToken;
 
 
     /**
