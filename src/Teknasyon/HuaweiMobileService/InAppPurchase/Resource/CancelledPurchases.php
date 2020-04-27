@@ -17,64 +17,33 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Resource;
 
+use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\CancelledPuchaseRequest;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\CancelledPurchaseResponse;
 use Teknasyon\HuaweiMobileService\Resource;
 
 /**
- * The "products" collection of methods.
+ * The "cancelledPurchases" collection of methods.
  * Typical usage is:
  *  <code>
- *   $androidpublisherService = new Google_Service_AndroidPublisher(...);
- *   $products = $androidpublisherService->products;
+ *   $publisherService = new Publisher(...);
+ *   $subscriptions = $publisherService->purchases_orders;
  *  </code>
  */
 class CancelledPurchases extends Resource
 {
     /**
-     * Acknowledges a purchase of an inapp item. (products.acknowledge)
-     *
-     * @param string                                                             $packageName The package name of the application the inapp
-     *                                                                                        product was sold in (for example, 'com.some.thing').
-     * @param string                                                             $productId   The inapp product SKU (for example,
-     *                                                                                        'com.some.thing.inapp1').
-     * @param string                                                             $token       The token provided to the user's device when the
-     *                                                                                        subscription was purchased.
-     * @param Google_Service_AndroidPublisher_ProductPurchasesAcknowledgeRequest $postBody
-     * @param array                                                              $optParams   Optional parameters.
-     */
-    public function acknowledge(
-        $packageName,
-        $productId,
-        $token,
-        Google_Service_AndroidPublisher_ProductPurchasesAcknowledgeRequest $postBody,
-        $optParams = array()
-    ) {
-        $params = array(
-            'packageName' => $packageName,
-            'productId' => $productId,
-            'token' => $token,
-            'postBody' => $postBody
-        );
-        $params = array_merge($params, $optParams);
-        return $this->call('acknowledge', array($params));
-    }
-
-    /**
      * Checks the purchase and consumption status of an inapp item. (products.get)
      *
-     * @param string $packageName The package name of the application the inapp
-     *                            product was sold in (for example, 'com.some.thing').
-     * @param string $productId   The inapp product SKU (for example,
-     *                            'com.some.thing.inapp1').
-     * @param string $token       The token provided to the user's device when the inapp
-     *                            product was purchased.
-     * @param array  $optParams   Optional parameters.
+     * @param CancelledPuchaseRequest $postBody
+     * @param array                   $optParams Optional parameters.
      *
-     * @return Google_Service_AndroidPublisher_ProductPurchase
+     * @return expectedClass
+     * @throws HuaweiException
      */
-    public function get($packageName, $productId, $token, $optParams = array())
+    public function cancelledList(CancelledPuchaseRequest $postBody, $optParams = array())
     {
-        $params = array('packageName' => $packageName, 'productId' => $productId, 'token' => $token);
-        $params = array_merge($params, $optParams);
-        return $this->call('get', array($params), "Google_Service_AndroidPublisher_ProductPurchase");
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('cancelledList', array($params), get_class( new CancelledPurchaseResponse()));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionGetRequest extends \Google_Model
+class OrderGetRequest extends \Google_Model
 {
 
     /**
@@ -13,23 +13,22 @@ class SubscriptionGetRequest extends \Google_Model
     /**
      * @var string $purchaseToken
      */
-    public $purchaseToken;
-
+    public $productId;
 
     /**
      * @return string
      */
-    public function getSubscriptionId()
+    public function getProductId()
     {
-        return $this->subscriptionId;
+        return $this->productId;
     }
 
     /**
-     * @param string $subscriptionId
+     * @param string $productId
      */
-    public function setSubscriptionId($subscriptionId)
+    public function setProductId($productId)
     {
-        $this->subscriptionId = $subscriptionId;
+        $this->productId = $productId;
     }
 
     /**

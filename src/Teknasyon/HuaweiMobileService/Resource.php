@@ -1,33 +1,12 @@
 <?php
 
-/**
- * Copyright 2010 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 namespace Teknasyon\HuaweiMobileService;
 
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Teknasyon\HuaweiMobileService\HuaweiClient as Client;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 
-/**
- * Implements the actual methods/resources of the discovered Google API using magic function
- * calling overloading (__call()), which on call will see if the method name (plus.activities.list)
- * is available in this service, and if so construct an apiHttpRequest representing it.
- *
- */
 class Resource
 {
     /** @var string $rootUrl */
@@ -68,9 +47,8 @@ class Resource
      *
      * @param $expectedClass - optional, the expected class name
      *
-     * @return Google_Http_Request|expectedClass
+     * @return Response|expectedClass
      * @throws HuaweiException
-     * @throws \Google_Exception
      */
     public function call($name, $arguments, $expectedClass = null)
     {
@@ -252,11 +230,6 @@ class Resource
                     }
                 }
             }
-        }
-
-        if (count($uriTemplateVars)) {
-            $uriTemplateParser = new Google_Utils_UriTemplate();
-            $requestUrl = $uriTemplateParser->parse($requestUrl, $uriTemplateVars);
         }
 
         if (count($queryVars)) {

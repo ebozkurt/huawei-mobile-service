@@ -1,75 +1,58 @@
 <?php
 
-/*
- * Copyright 2014 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Resource;
 
+use GuzzleHttp\Psr7\Response;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionDelayRequest;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionDelayResponse;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionGetRequest;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionGetResponse;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionReturnFeeRequest;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionStopRequest;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionWithDrawalRequest;
 use Teknasyon\HuaweiMobileService\Resource;
 
 /**
  * The "subscriptions" collection of methods.
  * Typical usage is:
  *  <code>
- *   $androidpublisherService = new Google_Service_AndroidPublisher(...);
- *   $subscriptions = $androidpublisherService->subscriptions;
+ *   $publisherService = new Publisher(...);
+ *   $subscriptions = $publisherService->subscriptions;
  *  </code>
  */
 class PurchasesSubscriptions extends Resource
 {
     /**
-     * Cancels a user's subscription purchase. The subscription remains valid until
-     * its expiration time. (subscriptions.cancel)
+     * Stop a user's subscription purchase. The subscription remains valid until
+     * its expiration time. (subscriptions.stop)
      *
-     * @param string $subscriptionId The purchased subscription ID (for example,
-     *                               'monthly001').
-     * @param string $token          The token provided to the user's device when the
-     *                               subscription was purchased.
-     * @param array  $optParams      Optional parameters.
+     * @param SubscriptionStopRequest $postBody
+     * @param array                   $optParams Optional parameters.
+     *
+     * @return expectedClass|Response
+     * @throws HuaweiException
      */
-    public function stop($subscriptionId, $token, $optParams = array())
+    public function stop(SubscriptionStopRequest $postBody, $optParams = array())
     {
-        $params = array('subscriptionId' => $subscriptionId, 'purchaseToken' => $token);
-        $params = array_merge($params, $optParams);
-        return $this->call('cancel', array($params));
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('stop', array($params));
     }
 
     /**
-     * Defers a user's subscription purchase until a specified future expiration
-     * time. (subscriptions.defer)
+     * Delay a user's subscription purchase until a specified future expiration
+     * time. (subscriptions.delay)
      *
-     * @param string                                                            $subscriptionId The purchased subscription ID (for example,
-     *                                                                                          'monthly001').
-     * @param string                                                            $token          The token provided to the user's device when the
-     *                                                                                          subscription was purchased.
-     * @param Google_Service_AndroidPublisher_SubscriptionPurchasesDeferRequest $postBody
-     * @param array                                                             $optParams      Optional parameters.
+     * @param SubscriptionDelayRequest $postBody
+     * @param array                    $optParams Optional parameters.
      *
-     * @return Google_Service_AndroidPublisher_SubscriptionPurchasesDeferResponse
+     * @return expectedClass|Response
+     * @throws HuaweiException
      */
-    public function delay(
-        Google_Service_AndroidPublisher_SubscriptionPurchasesDeferRequest $postBody,
-        $optParams = array()
-    ) {
-        $params = array('postBody' => $postBody);
-        $params = array_merge($params, $optParams);
-        return $this->call('defer', array($params),
-            "Google_Service_AndroidPublisher_SubscriptionPurchasesDeferResponse");
+    public function delay(SubscriptionDelayRequest $postBody, $optParams = array())
+    {
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('delay', array($params), get_class(new SubscriptionDelayResponse()));
     }
 
     /**
@@ -79,48 +62,46 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionGetRequest $postBody
      * @param array                  $optParams Optional parameters.
      *
-     * @return SubscriptionGetResponse
+     * @return expectedClass|Response
+     * @throws HuaweiException
      */
     public function get(SubscriptionGetRequest $postBody, $optParams = array())
     {
-        $params = array('postBody' => $postBody);
-        $params = array_merge($params, $optParams);
-        return $this->call('get', array($params), "SubscriptionGetResponse");
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('get', array($params), get_class(new SubscriptionGetResponse()));
     }
 
     /**
-     * Refunds a user's subscription purchase, but the subscription remains valid
+     * ReturnFee a user's subscription purchase, but the subscription remains valid
      * until its expiration time and it will continue to recur.
-     * (subscriptions.refund)
+     * (subscriptions.returnFee)
      *
-     * @param string $subscriptionId The purchased subscription ID (for example,
-     *                               'monthly001').
-     * @param string $token          The token provided to the user's device when the
-     *                               subscription was purchased.
-     * @param array  $optParams      Optional parameters.
+     * @param SubscriptionReturnFeeRequest $postBody
+     * @param array                        $optParams Optional parameters.
+     *
+     * @return expectedClass|Response
+     * @throws HuaweiException
      */
-    public function returnFee($subscriptionId, $token, $optParams = array())
+    public function returnFee(SubscriptionReturnFeeRequest $postBody, $optParams = array())
     {
-        $params = array('subscriptionId' => $subscriptionId, 'purchaseToken' => $token);
-        $params = array_merge($params, $optParams);
-        return $this->call('refund', array($params));
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('returnFee', array($params));
     }
 
     /**
      * Refunds and immediately revokes a user's subscription purchase. Access to the
      * subscription will be terminated immediately and it will stop recurring.
-     * (subscriptions.revoke)
+     * (subscriptions.withdrawal)
      *
-     * @param string $subscriptionId The purchased subscription ID (for example,
-     *                               'monthly001').
-     * @param string $token          The token provided to the user's device when the
-     *                               subscription was purchased.
-     * @param array  $optParams      Optional parameters.
+     * @param SubscriptionWithDrawalRequest $postBody
+     * @param array                         $optParams Optional parameters.
+     *
+     * @return expectedClass|Response
+     * @throws HuaweiException
      */
-    public function withdrawal($subscriptionId, $token, $optParams = array())
+    public function withdrawal(SubscriptionWithDrawalRequest $postBody, $optParams = array())
     {
-        $params = array('subscriptionId' => $subscriptionId, 'purchaseToken' => $token);
-        $params = array_merge($params, $optParams);
-        return $this->call('revoke', array($params));
+        $params = array_merge(array('postBody' => $postBody), $optParams);
+        return $this->call('withdrawal', array($params));
     }
 }
