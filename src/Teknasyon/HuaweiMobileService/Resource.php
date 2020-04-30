@@ -18,27 +18,28 @@ class Resource
     /** @var string $serviceName */
     private $serviceName;
 
-    /** @var string $servicePath */
-    private $servicePath;
-
     /** @var string $resourceName */
     private $resourceName;
 
     /** @var array $methods */
     private $methods;
 
-    public function __construct($service, $serviceName, $resourceName, $resource)
+
+    /**
+     * Resource constructor.
+     *
+     * @param Publisher $service
+     * @param string    $resourceName
+     * @param array     $resource
+     */
+    public function __construct($service, $resourceName, $resource)
     {
         $this->rootUrl = $service->rootUrl;
         $this->client = $service->getClient();
-        $this->servicePath = $service->servicePath;
-        $this->serviceName = $serviceName;
+        $this->serviceName = $service->serviceName;
         $this->resourceName = $resourceName;
-        $this->methods = is_array($resource) && isset($resource['methods'])
-            ?
-            $resource['methods']
-            :
-            array($resourceName => $resource);
+        $this->methods = is_array($resource) && isset($resource['methods']) ?
+            $resource['methods'] : array($resourceName => $resource);
     }
 
     /**
@@ -158,9 +159,6 @@ class Resource
             $parameters
         );
 
-        // NOTE: because we're creating the request by hand,
-        // and because the service has a rootUrl property
-        // the "base_uri" of the Http Client is not accounted for
         $request = new Request(
             $method['httpMethod'],
             $url,
@@ -201,7 +199,7 @@ class Resource
         if ('/' == substr($restPath, 0, 1)) {
             $requestUrl = substr($restPath, 1);
         } else {
-            $requestUrl = $this->servicePath . $restPath;
+            $requestUrl = $restPath;
         }
 
         // code for leading slash
@@ -211,23 +209,19 @@ class Resource
             }
             $requestUrl = $this->rootUrl . $requestUrl;
         }
-        $uriTemplateVars = array();
+
         $queryVars = array();
         foreach ($params as $paramName => $paramSpec) {
             if ($paramSpec['type'] == 'boolean') {
                 $paramSpec['value'] = $paramSpec['value'] ? 'true' : 'false';
             }
-            if ($paramSpec['location'] == 'path') {
-                $uriTemplateVars[$paramName] = $paramSpec['value'];
-            } else {
-                if ($paramSpec['location'] == 'query') {
-                    if (is_array($paramSpec['value'])) {
-                        foreach ($paramSpec['value'] as $value) {
-                            $queryVars[] = $paramName . '=' . rawurlencode(rawurldecode($value));
-                        }
-                    } else {
-                        $queryVars[] = $paramName . '=' . rawurlencode(rawurldecode($paramSpec['value']));
+            if ($paramSpec['location'] == 'query') {
+                if (is_array($paramSpec['value'])) {
+                    foreach ($paramSpec['value'] as $value) {
+                        $queryVars[] = $paramName . '=' . rawurlencode(rawurldecode($value));
                     }
+                } else {
+                    $queryVars[] = $paramName . '=' . rawurlencode(rawurldecode($paramSpec['value']));
                 }
             }
         }

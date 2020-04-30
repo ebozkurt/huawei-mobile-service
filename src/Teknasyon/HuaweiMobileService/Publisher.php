@@ -2,32 +2,34 @@
 
 namespace Teknasyon\HuaweiMobileService;
 
-use Google_Client;
-use Google_Service;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\CancelledPurchases;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\PurchasesOrders;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\PurchasesSubscriptions;
 
-class Publisher extends Google_Service
+class Publisher
 {
     public $purchases_orders;
     public $purchases_subscriptions;
     public $cancelled_purchases;
 
+    public $rootUrl;
+    public $version;
+    public $serviceName;
+    private $client;
+
     /**
-     * @param $client
+     * @param        $client
      * @param string $rootUrl The root URL used for requests to the service.
      */
     public function __construct($client, $rootUrl = null)
     {
-        parent::__construct($client);
+        $this->client = $client;
         $this->rootUrl = $rootUrl ?: 'https://subscr-drru.iap.hicloud.com/';
         $this->version = 'v2';
-        $this->serviceName = 'androidpublisher';
+        $this->serviceName = 'hmsPublisher';
 
         $this->purchases_subscriptions = new PurchasesSubscriptions(
             $this,
-            $this->serviceName,
             'subscriptions',
             array(
                 'methods' => array(
@@ -62,7 +64,6 @@ class Publisher extends Google_Service
 
         $this->purchases_orders = new PurchasesOrders(
             $this,
-            $this->serviceName,
             'orders',
             array(
                 'methods' => array(
@@ -77,7 +78,6 @@ class Publisher extends Google_Service
 
         $this->cancelled_purchases = new CancelledPurchases(
             $this,
-            $this->serviceName,
             'cancelled',
             array(
                 'methods' => array(
@@ -90,5 +90,11 @@ class Publisher extends Google_Service
             )
         );
     }
+
+    public function getClient()
+    {
+        return $this->client;
+    }
+
 }
 

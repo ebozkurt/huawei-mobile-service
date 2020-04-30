@@ -5,46 +5,106 @@ namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 class CancelledPurchaseResponse extends \Google_Model
 {
 
-    /**
-     * @var string $subscriptionId
-     */
-    public $subscriptionId;
+    public $orderId;
+    public $productId;
+    public $purchaseTime;
+    public $cancelledTime;
+    public $cancelledSource;
+    public $cancelledReason;
 
     /**
-     * @var string $purchaseToken
+     * @return mixed
      */
-    public $purchaseToken;
-
-
-    /**
-     * @return string
-     */
-    public function getSubscriptionId()
+    public function getOrderId()
     {
-        return $this->subscriptionId;
+        return $this->orderId;
     }
 
     /**
-     * @param string $subscriptionId
+     * @param mixed $orderId
      */
-    public function setSubscriptionId($subscriptionId)
+    public function setOrderId($orderId)
     {
-        $this->subscriptionId = $subscriptionId;
+        $this->orderId = $orderId;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getPurchaseToken()
+    public function getProductId()
     {
-        return $this->purchaseToken;
+        return $this->productId;
     }
 
     /**
-     * @param string $purchaseToken
+     * @param mixed $productId
      */
-    public function setPurchaseToken($purchaseToken)
+    public function setProductId($productId)
     {
-        $this->purchaseToken = $purchaseToken;
+        $this->productId = $productId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseTime()
+    {
+        return $this->purchaseTime;
+    }
+
+    /**
+     * @param mixed $purchaseTime
+     */
+    public function setPurchaseTime($purchaseTime)
+    {
+        $this->purchaseTime = $purchaseTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCancelledTime()
+    {
+        return $this->cancelledTime;
+    }
+
+    /**
+     * @param mixed $cancelledTime
+     */
+    public function setCancelledTime($cancelledTime)
+    {
+        $this->cancelledTime = $cancelledTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCancelledSource()
+    {
+        return $this->cancelledSource;
+    }
+
+    /**
+     * @param mixed $cancelledSource
+     */
+    public function setCancelledSource($cancelledSource)
+    {
+        $this->cancelledSource = $cancelledSource;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCancelledReason()
+    {
+        return $this->cancelledReason;
+    }
+
+    /**
+     * @param mixed $cancelledReason
+     */
+    public function setCancelledReason($cancelledReason)
+    {
+        $this->cancelledReason = $cancelledReason;
     }
 }

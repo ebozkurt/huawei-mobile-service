@@ -18,10 +18,10 @@
     }
   ],
   "require": {
-    "google/apiclient": "^2.0",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "6.*",
-    "ext-redis": "*"
+    "ext-redis": "*",
+    "google/apiclient": "^2.0",
+    "guzzlehttp/guzzle": "6.*"
   },
   "autoload": {
     "psr-0": {

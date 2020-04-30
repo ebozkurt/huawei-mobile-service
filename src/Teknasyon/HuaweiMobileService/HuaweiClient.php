@@ -93,8 +93,6 @@ class HuaweiClient
     /**
      * Decode an HTTP Response.
      *
-     * @static
-     *
      * @param ResponseInterface $response
      * @param RequestInterface  $request The http response to be decoded.
      * @param null              $expectedClass
@@ -102,7 +100,7 @@ class HuaweiClient
      * @return mixed|null
      * @throws HuaweiException
      */
-    public static function decodeHttpResponse(
+    public function decodeHttpResponse(
         ResponseInterface $response,
         RequestInterface $request = null,
         $expectedClass = null
@@ -124,19 +122,21 @@ class HuaweiClient
             $json = json_decode($body, true);
 
             // todo : an arrangement should be made to this part
-            if(isset($json['inappPurchaseData'])){
+            if (isset($json['inappPurchaseData'])) {
                 $json = json_decode($json['inappPurchaseData'], true);
             }
 
-            new $expectedClass();
-
-            return new $expectedClass($json);
+            try {
+                return new $expectedClass($json);
+            } catch (\Exception $e) {
+                self::log(' Huawei Client Error : Expected Class not found', Logger::WARNING);
+            }
         }
 
         return $response;
     }
 
-    private static function determineExpectedClass($expectedClass, RequestInterface $request = null)
+    private function determineExpectedClass($expectedClass, RequestInterface $request = null)
     {
         // "false" is used to explicitly prevent an expected class from being returned
         if (false === $expectedClass) {
@@ -147,9 +147,6 @@ class HuaweiClient
         if (null === $request) {
             return $expectedClass;
         }
-
-        // return what we have in the request header if one was not supplied
-        return $expectedClass ?: $request->getHeaderLine('X-Php-Expected-Class');
     }
 
     private function authorize(Request $request)
@@ -232,13 +229,13 @@ class HuaweiClient
 
             if ($responseStatus == 200 && isset($result['access_token']) && $result['access_token'] != '') {
                 $this->log(
-                    '[HW_PUSH_MESSAGE] Request: ' . json_encode($requestParams) . ', Response: ' . $responseBody,
-                    Logger::DEBUG
+                    'Huawei Client Error, Request: ' . json_encode($requestParams) . ', Response: ' .
+                    $responseBody, Logger::DEBUG
                 );
                 return [$result['access_token'], $result['expires_in']];
             } else {
                 $this->log(
-                    '[HW_PUSH_MESSAGE] Resfresh Token Failed! HttpStatusCode: ' . $responseStatus .
+                    'Huawei Client Error, Resfresh Token Failed! HttpStatusCode: ' . $responseStatus .
                     ', Request: ' . json_encode($requestParams) . ', Response: ' . $responseBody,
                     Logger::ERROR
                 );
