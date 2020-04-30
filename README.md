@@ -19,8 +19,14 @@ Install
 -------
 
 ```
+"repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/Teknasyon-Teknoloji/huawei-mobile-service.git"
+    }
+],
 "require" : {
-    "teknasyon/huawei-mobile-service": "1.0"
+    "teknasyon/huawei-mobile-service": "dev-master",
 }
 ```
 
