@@ -32,26 +32,20 @@ The first step is to define and implement the **Job** to be managed.
 ```php
 <?php
 
-protected function getPublisherService()
-{
-    if ($this->publisherService == null) {
-        $client = new HuaweiClient($this->credentials);
-        if ($this->logger != null) {
-            $client->setLogger($this->logger);
-        }
-        if ($this->redis != null) {
-            $client->setRedis($this->redis);
-        }
-        $this->publisherService = new Publisher($client);
-    }
-    return $this->publisherService;
+$client = new HuaweiClient($this->credentials);
+if ($logger != null) {
+    $client->setLogger($logger);
 }
+if ($redis != null) {
+    $client->setRedis($redis);
+}
+$publisherService = new Publisher($client);
 
 
 $subcriptionGetRequest = new SubscriptionGetRequest();
 $subcriptionGetRequest->setSubscriptionId($subscriptionId);
 $subcriptionGetRequest->setPurchaseToken($purchaseToken);
 
-$purchase = $this->getPublisherService()->purchases_subscriptions->get($subcriptionGetRequest);
+$purchase = $publisherService->purchases_subscriptions->get($subcriptionGetRequest);
 
 ```
