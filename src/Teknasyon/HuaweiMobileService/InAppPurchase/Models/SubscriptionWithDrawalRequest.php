@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionWithDrawalRequest extends \Google_Model
+class SubscriptionWithDrawalRequest extends Model
 {
 
     /**

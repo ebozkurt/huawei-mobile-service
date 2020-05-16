@@ -100,7 +100,7 @@ class HuaweiClient
      * @return mixed|null
      * @throws HuaweiException
      */
-    public function decodeHttpResponse(
+    private function decodeHttpResponse(
         ResponseInterface $response,
         RequestInterface $request = null,
         $expectedClass = null
@@ -209,7 +209,7 @@ class HuaweiClient
         return null;
     }
 
-    public function requestAccessTokenFromHuawei()
+    private function requestAccessTokenFromHuawei()
     {
         $tryCount = 0;
         do {
@@ -269,21 +269,22 @@ class HuaweiClient
      *
      * @return string
      */
-    public function buildAuthorization($accessToken)
+    private function buildAuthorization($accessToken)
     {
         $oriString = "APPAT:" . $accessToken;
-        $authHead = "Basic " . base64_encode(utf8_encode($oriString)) . "";
+        $authHead = "Basic " . base64_encode(utf8_encode($oriString));
         return $authHead;
     }
 
     /**
      * @param string $msg
      * @param int    $level
+     * @param null   $context
      */
-    public function log($msg, $level = Logger::INFO)
+    public function log($msg, $level = Logger::INFO, $context = null)
     {
         if ($this->logger) {
-            $this->logger->log($level, $msg);
+            $this->logger->log($level, $msg, $context);
         }
     }
 
@@ -295,14 +296,6 @@ class HuaweiClient
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-    }
-
-    /**
-     * @return LoggerInterface implementation
-     */
-    public function getLogger()
-    {
-        return $this->logger;
     }
 
     /**

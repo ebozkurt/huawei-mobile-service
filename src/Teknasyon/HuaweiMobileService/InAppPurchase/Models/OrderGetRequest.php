@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class OrderGetRequest extends \Google_Model
+class OrderGetRequest extends Model
 {
 
     /**

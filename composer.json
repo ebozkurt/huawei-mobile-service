@@ -20,7 +20,6 @@
   "require": {
     "ext-json": "*",
     "ext-redis": "*",
-    "google/apiclient": "^2.0",
     "guzzlehttp/guzzle": "6.*"
   },
   "autoload": {

@@ -4,8 +4,10 @@ namespace Teknasyon\HuaweiMobileService;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Monolog\Logger;
 use Teknasyon\HuaweiMobileService\HuaweiClient as Client;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
+use Teknasyon\HuaweiMobileService\InAppPurchase\Models\Model;
 
 class Resource
 {
@@ -54,8 +56,9 @@ class Resource
     public function call($name, $arguments, $expectedClass = null)
     {
         if (!isset($this->methods[$name])) {
-            $this->client->getLogger()->error(
+            $this->client->log(
                 'Service method unknown',
+                Logger::ERROR,
                 array(
                     'service' => $this->serviceName,
                     'resource' => $this->resourceName,
@@ -76,7 +79,7 @@ class Resource
         // document as parameter, but we abuse the param entry for storing it.
         $postBody = null;
         if (isset($parameters['postBody'])) {
-            if ($parameters['postBody'] instanceof \Google_Model) {
+            if ($parameters['postBody'] instanceof Model) {
                 // In the cases the post body is an existing object, we want
                 // to use the smart method to create a simple object for
                 // for JSONification.
@@ -106,8 +109,9 @@ class Resource
 
         foreach ($parameters as $key => $val) {
             if ($key != 'postBody' && !isset($method['parameters'][$key])) {
-                $this->client->getLogger()->error(
+                $this->client->log(
                     'Service parameter unknown',
+                    Logger::ERROR,
                     array(
                         'service' => $this->serviceName,
                         'resource' => $this->resourceName,
@@ -121,8 +125,9 @@ class Resource
 
         foreach ($method['parameters'] as $paramName => $paramSpec) {
             if (isset($paramSpec['required']) && $paramSpec['required'] && !isset($parameters[$paramName])) {
-                $this->client->getLogger()->error(
+                $this->client->log(
                     'Service parameter missing',
+                    Logger::ERROR,
                     array(
                         'service' => $this->serviceName,
                         'resource' => $this->resourceName,
@@ -143,8 +148,9 @@ class Resource
             }
         }
 
-        $this->client->getLogger()->info(
+        $this->client->log(
             'Service Call',
+            Logger::INFO,
             array(
                 'service' => $this->serviceName,
                 'resource' => $this->resourceName,
@@ -186,14 +192,12 @@ class Resource
      * Parse/expand request parameters and create a fully qualified
      * request uri.
      *
-     * @static
-     *
      * @param string $restPath
      * @param array  $params
      *
      * @return string $requestUrl
      */
-    public function createRequestUri($restPath, $params)
+    private function createRequestUri($restPath, $params)
     {
         // Override the default servicePath address if the $restPath use a /
         if ('/' == substr($restPath, 0, 1)) {

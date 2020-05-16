@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionStopRequest extends \Google_Model
+class SubscriptionStopRequest extends Model
 {
 
     /**

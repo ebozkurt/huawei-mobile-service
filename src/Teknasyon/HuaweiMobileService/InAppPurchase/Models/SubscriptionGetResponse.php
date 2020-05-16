@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionGetResponse extends \Google_Model
+class SubscriptionGetResponse extends Model
 {
     public $applicationId;
     public $autoRenewing;

@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class CancelledPuchaseRequest extends \Google_Model
+class CancelledPuchaseRequest extends Model
 {
 
     /**

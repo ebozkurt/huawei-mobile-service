@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionDelayRequest extends \Google_Model
+class SubscriptionDelayRequest extends Model
 {
 
     /**

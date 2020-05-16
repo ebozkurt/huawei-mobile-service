@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class SubscriptionDelayResponse extends \Google_Model
+class SubscriptionDelayResponse extends Model
 {
     public $newExpirationTime;
 

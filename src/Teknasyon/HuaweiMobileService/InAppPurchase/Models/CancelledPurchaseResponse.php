@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class CancelledPurchaseResponse extends \Google_Model
+class CancelledPurchaseResponse extends Model
 {
 
     public $orderId;
