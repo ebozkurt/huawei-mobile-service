@@ -136,7 +136,7 @@ class HuaweiClient
         return $response;
     }
 
-    private function determineExpectedClass($expectedClass, RequestInterface $request = null)
+    private static function determineExpectedClass($expectedClass, RequestInterface $request = null)
     {
         // "false" is used to explicitly prevent an expected class from being returned
         if (false === $expectedClass) {
@@ -147,6 +147,8 @@ class HuaweiClient
         if (null === $request) {
             return $expectedClass;
         }
+
+        return $expectedClass;
     }
 
     private function authorize(Request $request)
@@ -296,6 +298,16 @@ class HuaweiClient
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    /**
+     * Set the Redis object
+     *
+     * @param \Redis $redis
+     */
+    public function setRedis(\Redis $redis)
+    {
+        $this->redis = $redis;
     }
 
     /**
