@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Resource;
 
-use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\OrderGetRequest;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\OrderGetResponse;
@@ -24,7 +24,7 @@ class PurchasesOrders extends Resource
      * @param OrderGetRequest $postBody
      * @param array           $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return ResponseInterface|OrderGetResponse
      * @throws HuaweiException
      */
     public function get(OrderGetRequest $postBody, $optParams = array())

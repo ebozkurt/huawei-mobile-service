@@ -5,6 +5,7 @@ namespace Teknasyon\HuaweiMobileService;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Monolog\Logger;
+use Psr\Http\Message\ResponseInterface;
 use Teknasyon\HuaweiMobileService\HuaweiClient as Client;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\Model;
@@ -50,7 +51,7 @@ class Resource
      *
      * @param $expectedClass - optional, the expected class name
      *
-     * @return Response|expectedClass
+     * @return ResponseInterface|expectedClass
      * @throws HuaweiException
      */
     public function call($name, $arguments, $expectedClass = null)

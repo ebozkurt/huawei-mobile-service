@@ -2,7 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Resource;
 
-use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionDelayRequest;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Models\SubscriptionDelayResponse;
@@ -30,7 +30,7 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionStopRequest $postBody
      * @param array                   $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return ResponseInterface
      * @throws HuaweiException
      */
     public function stop(SubscriptionStopRequest $postBody, $optParams = array())
@@ -46,7 +46,7 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionDelayRequest $postBody
      * @param array                    $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return SubscriptionDelayResponse|ResponseInterface
      * @throws HuaweiException
      */
     public function delay(SubscriptionDelayRequest $postBody, $optParams = array())
@@ -62,7 +62,7 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionGetRequest $postBody
      * @param array                  $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return SubscriptionGetResponse|ResponseInterface
      * @throws HuaweiException
      */
     public function get(SubscriptionGetRequest $postBody, $optParams = array())
@@ -79,7 +79,7 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionReturnFeeRequest $postBody
      * @param array                        $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return ResponseInterface
      * @throws HuaweiException
      */
     public function returnFee(SubscriptionReturnFeeRequest $postBody, $optParams = array())
@@ -96,7 +96,7 @@ class PurchasesSubscriptions extends Resource
      * @param SubscriptionWithDrawalRequest $postBody
      * @param array                         $optParams Optional parameters.
      *
-     * @return expectedClass|Response
+     * @return ResponseInterface
      * @throws HuaweiException
      */
     public function withdrawal(SubscriptionWithDrawalRequest $postBody, $optParams = array())

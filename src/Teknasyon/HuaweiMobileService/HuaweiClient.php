@@ -58,7 +58,7 @@ class HuaweiClient
      * @param Request $request
      * @param string  $expectedClass
      *
-     * @return mixed|null
+     * @return ResponseInterface|expectedClass
      * @throws HuaweiException
      */
     public function execute(Request $request, $expectedClass = "")
@@ -97,7 +97,7 @@ class HuaweiClient
      * @param RequestInterface  $request The http response to be decoded.
      * @param null              $expectedClass
      *
-     * @return mixed|null
+     * @return ResponseInterface|expectedClass
      * @throws HuaweiException
      */
     private function decodeHttpResponse(

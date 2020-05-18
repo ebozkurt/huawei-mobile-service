@@ -2,11 +2,11 @@
 
 namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 
-class CancelledPurchaseResponse extends Model
+class CancelledPurchase extends Model
 {
-
     public $orderId;
     public $productId;
+    public $purchaseToken;
     public $purchaseTime;
     public $cancelledTime;
     public $cancelledSource;
@@ -42,6 +42,22 @@ class CancelledPurchaseResponse extends Model
     public function setProductId($productId)
     {
         $this->productId = $productId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseToken()
+    {
+        return $this->purchaseToken;
+    }
+
+    /**
+     * @param mixed $purchaseToken
+     */
+    public function setPurchaseToken($purchaseToken)
+    {
+        $this->purchaseToken = $purchaseToken;
     }
 
     /**
@@ -107,4 +123,6 @@ class CancelledPurchaseResponse extends Model
     {
         $this->cancelledReason = $cancelledReason;
     }
+
+
 }
