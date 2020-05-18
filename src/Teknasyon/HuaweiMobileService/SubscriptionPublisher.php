@@ -2,11 +2,9 @@
 
 namespace Teknasyon\HuaweiMobileService;
 
-use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\CancelledPurchases;
-use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\PurchasesOrders;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Resource\PurchasesSubscriptions;
 
-class Publisher
+class SubscriptionPublisher
 {
     public $purchases_orders;
     public $purchases_subscriptions;
@@ -24,7 +22,7 @@ class Publisher
     public function __construct($client, $rootUrl = null)
     {
         $this->client = $client;
-        $this->rootUrl = $rootUrl ?: 'https://subscr-drru.iap.hicloud.com/';
+        $this->rootUrl = $rootUrl ?: 'https://subscr-dre.iap.hicloud.com/';
         $this->version = 'v2';
         $this->serviceName = 'hmsPublisher';
 
@@ -55,34 +53,6 @@ class Publisher
                     ),
                     'withdrawal' => array(
                         'path' => '/sub/applications/' . $this->version . '/purchases/withdrawal',
-                        'httpMethod' => 'POST',
-                        'parameters' => array(),
-                    ),
-                )
-            )
-        );
-
-        $this->purchases_orders = new PurchasesOrders(
-            $this,
-            'orders',
-            array(
-                'methods' => array(
-                    'get' => array(
-                        'path' => '/applications/purchases/tokens/verify',
-                        'httpMethod' => 'POST',
-                        'parameters' => array(),
-                    ),
-                )
-            )
-        );
-
-        $this->cancelled_purchases = new CancelledPurchases(
-            $this,
-            'cancelled',
-            array(
-                'methods' => array(
-                    'cancelledList' => array(
-                        'path' => '/applications/' . $this->version . '/purchases/cancelledList',
                         'httpMethod' => 'POST',
                         'parameters' => array(),
                     ),

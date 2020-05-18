@@ -3,7 +3,6 @@
 namespace Teknasyon\HuaweiMobileService;
 
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Teknasyon\HuaweiMobileService\HuaweiClient as Client;
@@ -31,9 +30,9 @@ class Resource
     /**
      * Resource constructor.
      *
-     * @param Publisher $service
-     * @param string    $resourceName
-     * @param array     $resource
+     * @param SubscriptionPublisher|OrderPublisher $service
+     * @param string                               $resourceName
+     * @param array                                $resource
      */
     public function __construct($service, $resourceName, $resource)
     {
