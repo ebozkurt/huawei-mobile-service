@@ -30,9 +30,9 @@ class Resource
     /**
      * Resource constructor.
      *
-     * @param SubscriptionPublisher|OrderPublisher $service
-     * @param string                               $resourceName
-     * @param array                                $resource
+     * @param Publisher $service
+     * @param string    $resourceName
+     * @param array     $resource
      */
     public function __construct($service, $resourceName, $resource)
     {
