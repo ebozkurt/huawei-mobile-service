@@ -5,6 +5,9 @@ namespace Teknasyon\HuaweiMobileService\InAppPurchase\Models;
 class CancelledPuchaseRequest extends Model
 {
 
+    const TYPE_CONSUMABLES = 0;
+    const TYPE_CONSUMABLES_AND_SUBSCRIPTIONS = 1;
+
     /**
      * @var int $endAt
      */
