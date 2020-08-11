@@ -2,6 +2,7 @@
 
 namespace Teknasyon\HuaweiMobileService;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
@@ -10,6 +11,7 @@ use Monolog\Logger;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Redis;
 use Teknasyon\HuaweiMobileService\InAppPurchase\Exceptions\HuaweiException;
 
 class HuaweiClient
@@ -25,7 +27,7 @@ class HuaweiClient
     private $config;
 
     /**
-     * @var \Redis
+     * @var Redis
      */
     private $redis;
 
@@ -128,7 +130,7 @@ class HuaweiClient
 
             try {
                 return new $expectedClass($json);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 self::log(' Huawei Client Error : Expected Class not found', Logger::WARNING);
             }
         }
@@ -281,9 +283,9 @@ class HuaweiClient
     /**
      * @param string $msg
      * @param int    $level
-     * @param null   $context
+     * @param array $context
      */
-    public function log($msg, $level = Logger::INFO, $context = null)
+    public function log($msg, $level = Logger::INFO, $context = array())
     {
         if ($this->logger) {
             $this->logger->log($level, $msg, $context);
@@ -302,10 +304,9 @@ class HuaweiClient
 
     /**
      * Set the Redis object
-     *
-     * @param \Redis $redis
+     * @param Redis $redis
      */
-    public function setRedis(\Redis $redis)
+    public function setRedis(Redis $redis)
     {
         $this->redis = $redis;
     }
